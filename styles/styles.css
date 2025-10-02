@@ -1,0 +1,922 @@
+@font-face {
+    font-family: 'FindSansPro';
+    src: url('../fonts/FindSansPro-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal; /* Исправлено: было Bold */
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FindSansPro';
+    src: url('../fonts/FindSansPro-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal; /* Исправлено: было Regular */
+    font-display: swap;
+}
+
+/**
+  Нормализация блочной модели
+ */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+
+/**
+  Убираем внутренние отступы слева тегам списков,
+  у которых есть атрибут class
+ */
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+}
+
+/**
+  Убираем внешние отступы body и двум другим тегам,
+  у которых есть атрибут class
+ */
+body,
+:where(blockquote, figure, fieldset):where([class]) {
+  margin: 0;
+}
+
+/**
+  Убираем внешние отступы вертикали нужным тегам,
+  у которых есть атрибут class
+ */
+:where(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul,
+  ol,
+  dl
+):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  padding: 0;
+  border: none;
+}
+
+/**
+  Убираем стандартный маркер маркированному списку,
+  у которого есть атрибут class
+ */
+:where(ul[class]) {
+  list-style: none;
+}
+
+:where(address[class]) {
+  font-style: normal;
+}
+
+/**
+  Обнуляем вертикальные внешние отступы параграфа,
+  объявляем локальную переменную для внешнего отступа вниз,
+  чтобы избежать взаимодействие с более сложным селектором
+ */
+p {
+  --paragraphMarginBottom: 24px;
+
+  margin-block: 0;
+}
+
+/**
+  Внешний отступ вниз для параграфа без атрибута class,
+  который расположен не последним среди своих соседних элементов
+ */
+p:where(:not([class]):not(:last-child)) {
+  margin-bottom: var(--paragraphMarginBottom);
+}
+
+
+/**
+  Упрощаем работу с изображениями и видео
+ */
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/**
+  Наследуем свойства шрифт для полей ввода
+ */
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+html {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  height: 100%;
+  /**
+    Убираем скачок интерфейса по горизонтали
+    при появлении / исчезновении скроллбара
+   */
+  scrollbar-gutter: stable;
+  /**
+    Плавный скролл
+   */
+  scroll-behavior: smooth;
+}
+
+body {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  min-height: 100%;
+  /**
+    Унифицированный интерлиньяж
+   */
+  line-height: 1.5;
+  background-color: var(--color-grey);
+}
+
+/**
+  Нормализация высоты элемента ссылки при его инспектировании в DevTools
+ */
+a:where([class]) {
+  display: inline-flex;
+}
+
+/**
+  Курсор-рука при наведении на элемент
+ */
+button,
+label {
+  cursor: pointer;
+}
+
+/**
+  Убирает серую подсветку при тапе на мобильных устройствах (iOS/Android)
+ */
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+  (за исключением тех, у которых уже указан
+  атрибут fill со значением 'none' или начинается с 'url')
+ */
+:where([fill]:not(
+  [fill="none"],
+  [fill^="url"]
+)) {
+  fill: currentColor;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+  (за исключением тех, у которых уже указан
+  атрибут stroke со значением 'none')
+ */
+:where([stroke]:not(
+  [stroke="none"],
+  [stroke^="url"]
+)) {
+  stroke: currentColor;
+}
+
+/**
+  Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+ */
+svg * {
+  transition-property: fill, stroke;
+}
+
+/**
+  Приведение рамок таблиц в классический 'collapse' вид
+ */
+:where(table) {
+  border-collapse: collapse;
+  border-color: currentColor;
+}
+
+/**
+  Удаляем все анимации и переходы для людей,
+  которые предпочитают их не использовать
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+:root {
+    --colcor-red: #e1001c;
+    --color-dark-red: #600a10;
+    --color-grey: #2f2f2f;
+    --color-white: #f0f0f0;
+    --color-light-red: #f60000;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.block1 {
+  width: 100%;
+  max-width: 1920px;
+  height: 1080px;
+  background-image: url('../img/Блок№1.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  position: relative; /* Для позиционирования дочерних элементов */
+  background-attachment: scroll;
+}
+
+.b1h1 {
+    background: linear-gradient(45deg, #F52F47, #E5001A);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-family: 'FindSansPro', sans-serif; /* Добавлено: кавычки и fallback */
+    font-weight: 700; /* Исправлено: было width: 700px */
+    font-size: 48px;
+    position: absolute; /* Для позиционирования */
+    top: 100px; /* Примерное положение */
+    left: 100px; /* Примерное положение */
+    z-index: 2; /* Поверх других элементов */
+    line-height: 48px;
+}
+
+/* Добавьте стили для остальных элементов */
+.b1h2 {
+    font-family: 'FindSansPro', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: white;
+    position: absolute;
+    top: 300px; /* Примерное положение */
+    left: 100px;
+    z-index: 2;
+    margin-top: 20px;
+    line-height: 100%;
+}
+
+.btn1 {
+    font-family: 'FindSansPro', sans-serif;
+    font-weight: 400;
+    font-size: 32px;
+    position: absolute;
+    top: 450px;
+    left: 100px;
+    z-index: 2;
+    padding: 15px 50px;
+    background: transparent;
+    color: var(--color-white);
+    border: 3px solid var(--color-white); /* добавил solid */
+    border-radius: 25px;
+    cursor: pointer;
+    line-height: 35px;
+}
+
+.name, .age {
+    font-family: 'FindSansPro', sans-serif;
+    color: white;
+    position: absolute;
+    z-index: 2;
+    margin-top: auto;
+    bottom: 0px;
+    right: 0px;
+}
+
+/* Позиционирование изображений */
+.dawn, .depth, .blob, .pavel_photo {
+    position: absolute;
+    z-index: 1;
+}
+
+.blob {
+  scale: 1.75;
+  right: 100px;
+  bottom: 0px;
+}
+
+.pavel_photo {
+  scale: 0.75;
+  right: 200px;
+  bottom: 0px;
+}
+
+.dawn {
+  scale: 1.75;
+  top: 300px;
+  right: 200px;
+  bottom: 0px;
+}
+
+.depth {
+  left: 600px;
+  bottom: 350px;
+  scale: 1.5
+}
+
+.age {
+    font-family: 'FindSansPro', sans-serif;
+    font-weight: 700;
+    font-size: 48.5px;
+    color: var(--color-white);
+    bottom: 150px;
+    right: 365px;
+}
+
+.name{
+      font-family: 'FindSansPro', sans-serif;
+    font-weight: 700;
+    font-size: 58.5px;
+    color: var(--color-white);
+    bottom: 200px;
+    right: 350px;
+}
+
+.b1h2 {
+  bottom: 600px;
+  
+}
+
+.g1 {
+  position: absolute;
+  z-index: 1;
+  scale: 0.5;
+  transform: scale(1, 1);
+  rotate: 279deg;
+  bottom: 60px; /* рядом с .name */
+  right: 30px;
+}
+
+.g2 {
+  transform: scale(1, 1);
+  position: absolute;
+  z-index: 1;
+  scale: 0.5;
+  bottom: 10px; /* рядом с .age */
+  right: 535px;
+}
+
+
+.block2 {
+  width: 100%;
+  max-width: 1920px;
+  height: 1080px;
+  background-image: url('../img/Блок№2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  position: relative; /* Для позиционирования дочерних элементов */
+  margin-top: -4px;
+}
+
+
+
+
+li {
+  list-style-image: url('../svg/Hope.svg');
+  margin-left: 40px;
+}
+
+.b2h1 {
+    color: #FE2943;
+    font-family: 'FindSansPro', sans-serif; /* Добавлено: кавычки и fallback */
+    font-weight: 700; /* Исправлено: было width: 700px */
+    font-size: 48px;
+    position: absolute; /* Для позиционирования */
+    top: 100px; /* Примерное положение */
+    left: 100px; /* Примерное положение */
+    z-index: 2; /* Поверх других элементов */
+    line-height: 48px;
+}
+
+.b2h2 {
+    scale: 1,75;
+    font-family: 'FindSansPro', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: white;
+    position: absolute;
+    top: 300px;
+    left: 100px;
+    z-index: 2;
+    margin-top: 20px;
+    line-height: 100%;
+}
+
+.b2h2 li {
+  padding-left: 35px; /* увеличивает расстояние между маркером и текстом */
+  padding-bottom: 40px;
+}
+
+.btn2 {
+  font-family: 'FindSansPro', sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  position: absolute;
+  bottom: 150px;
+  left: 100px;
+  z-index: 2;
+  padding: 15px 50px;
+  background: transparent;
+  color: var(--color-white);
+  border: 3px solid var(--color-white); /* добавил solid */
+  border-radius: 25px;
+  cursor: pointer;
+  line-height: 35px;
+}
+
+.block3 {
+    background-image: url('../img/Блок№3.png');
+    width: 100%;
+    max-width: 1920px;
+    height: 1080px; /* или нужная вам высота */
+    margin: 0 auto;
+    position: relative;
+    margin-top: -50px;
+}
+
+
+.name1 {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    z-index: 10;
+    color: white;
+    font-family: 'FindSansPro', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.hope {
+  scale: 0.75;
+  position: absolute;
+  top: 125px;
+  left: 75px;
+}
+
+.users {
+  scale: 0.75;
+  position: absolute;
+  top: 140px;
+  left: 93px;
+}
+
+.stars {
+  scale: 0.75;
+  position: absolute;
+  top: 240px;
+  left: 55px;
+}
+
+.cardh2 {
+  text-align: left;
+  position: absolute;
+  bottom: 200px;
+  left: 85px;
+  z-index: 10;
+  color: white;
+  font-family: 'FindSansPro', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.cardh22 {
+  text-align: left;
+  position: absolute;
+  bottom: 200px;
+  left: 85px;
+  z-index: 10;
+  color: white;
+  font-family: 'FindSansPro', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+
+
+.block4 {
+  width: 100%;
+  max-width: 1920px;
+  height: 1080px;
+  background-image: url('../img/Блок№4.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  position: relative; /* Для позиционирования дочерних элементов */
+  margin-top: -4px;
+}
+
+.b4h1 {
+  scale: 1,75;
+  font-family: 'FindSansPro', sans-serif;
+  font-weight: 400;
+  font-size: 40px;
+  color: white;
+  position: absolute;
+  top: 100px; /* Примерное положение */
+  left: 100px; /* Примерное положение */
+  z-index: 2;
+  margin-top: 20px;
+  line-height: 100%;
+}
+
+picture {
+  width: 100%;
+  max-width: 940px;
+  display: block;
+  margin: 0 auto;
+}
+
+.b4h2 {
+  color: #FE2943;
+  font-family: 'FindSansPro', sans-serif; /* Добавлено: кавычки и fallback */
+  font-weight: 700; /* Исправлено: было width: 700px */
+  font-size: 48px;
+  position: absolute; /* Для позиционирования */
+  top: 200px;
+  left: 100px;
+  z-index: 2; /* Поверх других элементов */
+  line-height: 48px;
+}
+
+.pavel_krutoi {
+  scale: 1.3;
+  position: absolute;
+  bottom: 150px;
+  left: 60%;
+  transform: translateX(-50%);
+}
+
+.btn3 {
+  scale: 1.3;
+  font-family: 'FindSansPro', sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  position: absolute;
+  top: 600px;
+  left: 100px;
+  z-index: 2;
+  padding: 15px 50px 15px 185px;
+  background: url('../img/4c7027970077db2ba63a9c02c6a0fc414eef9523.png'), linear-gradient(-45deg, #800813, #BC2637);
+  background-size: 96px 96px, cover;
+  background-position: 70px center, center;
+  background-repeat: no-repeat, no-repeat;
+  color: var(--color-white);
+  border: 0px ;
+  border-radius: 50px;
+  cursor: pointer;
+  line-height: 35px;
+  margin: 0 auto;
+  box-shadow: 0 0 50px 50px rgba(255, 66, 69, 0.3);
+  width: 690px;
+  height: 156px;
+  left: 55%;
+  transform: translateX(-50%);
+}
+
+.footertext {
+  scale: 1,75;
+  font-family: 'FindSansPro', sans-serif;
+  font-weight: 400;
+  font-size: 40px;
+  color: white;
+  right: 27%;
+  transform: translateX(-50%);
+  position: absolute;
+  z-index: 2;
+  margin-top: 20px;
+  line-height: 100%;
+  bottom: 50px;
+}
+
+@media screen and (max-width: 1424px) {
+  .block1, .block2, .block3, .block4 {
+    max-width: 100%;
+  }
+  .b1h1 { font-size: 40px; line-height: 44px; left: 60px; }
+  .b1h2 { font-size: 20px; left: 60px; top: 280px; }
+  .btn1 { left: 60px; top: 420px; }
+  .b2h1 { left: 60px; }
+  .b2h2 { left: 60px; font-size: 20px; }
+  .btn2 { left: 60px; }
+  .carousel-container { width: min(92vw, 900px); top: 120px; }
+  .pavel_krutoi { left: 55%; }
+  .btn3 { width: 560px; }
+  .depth {display: none;}
+  .dawn {display: none;}
+  
+}
+
+@media screen and (max-width: 1250px) {
+  .pavel_photo {scale: 0.4;bottom: -200px;right: 0px;}
+  .blob {scale: 0.7; bottom: -1px;right: 0px;}
+  .g1 {scale: 0.3; bottom: -30px;right: 250px;}
+  .g2 {scale: 0.3; bottom: -50px;right: 10px;}
+  .age {scale: 0.5; bottom: 150px;right: 215px;}
+  .name {scale: 0.5; bottom: 170px;right: 200px;}
+}
+
+@media screen and (max-width: 868px) {
+  body { line-height: 1.4; }
+
+  /* Block 1 (hero) */
+  .block1 {
+    height: auto;
+    padding: 24px 20px 420px 20px;
+    background-position: center top;
+  }
+
+  @media screen and (min-width: 851px) {
+    .cardh2, .cardh22 { top: 24px; bottom: auto !important; }
+  }
+
+  .b1h1 {
+    position: static;
+    font-size: 28px;
+    line-height: 1.1;
+    margin: 0 0 12px 0;
+  }
+  .b1h2 {
+    position: static;
+    font-size: 16px;
+    line-height: 1.3;
+    margin: 0 0 20px 0;
+  }
+  .btn1 {
+    position: static;
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 0 20px 0;
+  }
+  /* Keep key visuals on mobile with safe scaling/positioning */
+  .pavel_photo {
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+    width: 55vw;
+    max-width: 360px;
+    height: auto;
+    scale: 1;
+  }
+  .blob {
+    scale: 1.5;
+    position: absolute;
+    right: -10vw;
+    bottom: -2vw;
+    width: 70vw;
+    height: auto;
+  }
+  .dawn {
+    position: static;
+    right: 6px;
+    bottom: 600px;
+    width: 40px;
+    height: auto;
+  }
+  .depth {
+    position: absolute;
+    left: 4vw;
+    top: 58vw;
+    width: 44vw;
+    height: auto;
+  }
+  .g1 {
+    scale: 1.3;
+    position: absolute;
+    right: 4vw;
+    bottom: 10vw;
+    width: 20vw;
+    height: auto;
+  }
+  .g2 {
+    scale: 1.3;
+    position: absolute;
+    right: 42vw;
+    bottom: 10vw;
+    width: 18vw;
+    height: auto;
+  }
+  .name {
+
+    position: absolute;
+    right: 12vw;
+    bottom: 20vw;
+    font-size: 35px;
+  }
+  .age {
+    position: absolute;
+    right: 15vw;
+    bottom: 15vw;
+    font-size: 30px;
+  }
+
+  /* Block 2 */
+  .block2 { height: auto; padding: 24px 20px 28px 20px; background-position: center top; }
+  .b2h1 {
+    position: static;
+    font-size: 28px;
+    line-height: 1.1;
+    margin: 0 0 16px 0;
+  }
+  .b2h2 {
+    position: static;
+    font-size: 16px;
+    line-height: 1.3;
+    margin: 0 0 16px 0;
+  }
+  .b2h2 li { padding-left: 28px; padding-bottom: 16px; margin-left: 24px; }
+  .btn2 {
+    position: static;
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin: 8px 0 0 0;
+  }
+
+  /* Block 3 (carousel) */
+  .block3 { height: auto; padding: 16px 0 28px 0; margin-top: 0; background-position: center top; }
+  .carousel-container { top: 0; width: 94vw; margin: 12px auto; }
+  .carousel-slide { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+  .carousel-slide picture, .carousel-slide img:not(.hope):not(.users):not(.stars) { width: 100%; height: auto; border-radius: 8px; }
+  .carousel-btn { width: 36px; height: 36px; font-size: 16px; }
+  .hope, .users, .stars { display: none; }
+  .name1 { display: none;}
+  .cardh2, .cardh22 {display: none;}
+
+  /* Block 4 */
+  .block4 { 
+    height: auto; 
+    padding: 20px 16px 24px 16px; 
+    background-position: center top; 
+    background-size: cover;
+  }
+  .b4h1, .b4h2, .footertext { position: static; text-align: center; }
+  .b4h1 { 
+    font-size: 24px; 
+    margin: 0 0 12px 0; 
+    line-height: 1.2;
+  }
+  .b4h2 { 
+    font-size: 28px; 
+    margin: 0 0 20px 0; 
+    margin-bottom: 60px;
+    line-height: 1.1;
+  }
+  .pavel_krutoi { 
+    position: static; 
+    display: block; 
+    margin: -30px auto; 
+    width: 80%; 
+    max-width: 300px; 
+    scale: 1.5; 
+    transform: none; 
+    left: auto; 
+  }
+  .btn3 {
+    position: static;
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    padding: 14px 16px 14px 80px;
+    margin: -80px auto 20px;
+    background-size: 48px 48px, cover;
+    background-position: 16px center, center;
+    box-shadow: 0 0 20px 20px rgba(255, 66, 69, 0.2);
+    left: auto;
+    transform: none;
+    font-size: 18px;
+    scale: 1;
+    margin-bottom: 60px;
+  }
+  .footertext { 
+    margin: 20px auto 0; 
+    right: auto; 
+    transform: none; 
+    font-size: 16px; 
+    scale: 1;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* Стили для контейнера карусели */
+        .carousel-container {
+            position: relative;
+            top: 0;
+            width: min(92vw, 1100px);
+            margin: 40px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Стили для обертки слайдов */
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        /* Стили для отдельных слайдов */
+        .carousel-slide {
+            min-width: 100%;
+            padding: 40px;
+            box-sizing: border-box;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Стили для кнопок навигации */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--colcor-red);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: var(--color-grey);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn {
+            left: 20px;
+        }
+
+        .next-btn {
+            right: 40px;
+
+        }
+
+        /* Стили для индикаторов */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--colcor-red);
+            transform: scale(1.2);
+        }
