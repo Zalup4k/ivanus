@@ -18,7 +18,7 @@
             Если ты зaдумaлcя o куpce, ПКТ <br> или уже на мocту — помoжем <br>  сдeлaть это безoпacнo и <br> pезультaтивно
         </h2>
 
-        <button class="btn1">
+        <button class="btn1" onclick="scrollToBottom()">
             оставить <br> заявку
         </button>
 
@@ -49,7 +49,7 @@
             <li>Минимум побочек — максимум контроля</li>
         </ul>
 
-        <button class= "btn2">
+        <button class= "btn2" onclick="scrollToBottom()">
             оставить <br> заявку
         </button>
     </div>
@@ -140,7 +140,7 @@
         <h1 class="b4h1">Нет опыта?</h1>
         <h2 class="b4h2">Все обьясню <br>без воды</h2>
         <img class="pavel_krutoi" src="./img/Павел Крутой.png">
-        <button class="btn3">Перейти в телеграмм</button>
+        <button class="btn3" onclick="window.open('https://t.me/Pavel_Farma_bot', '_blank')">Перейти в телеграмм</button>
         <h2 class="footertext">Партнерский сайт</h2>
     </div>
 
@@ -237,6 +237,14 @@
 
         // Инициализация карусели при загрузке страницы
         document.addEventListener('DOMContentLoaded', initCarousel);
+
+        function scrollToBottom() { 
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
     </script>
 </body>
 </html>
