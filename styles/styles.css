@@ -324,7 +324,7 @@ body {
 
 .blob {
   overflow: hidden;
-  scale: 1.75;
+  scale: 1.30;
   right: 100px;
   bottom: 0px;
 }
@@ -336,7 +336,7 @@ body {
 }
 
 .dawn {
-  scale: 1.75;
+  scale: 1.60;
   top: 300px;
   right: 200px;
   bottom: 0px;
@@ -636,7 +636,7 @@ picture {
 
 /* Партнерская надпись внутри блока */
 .partner-label {
-    position: fixed;
+    position: absolute;
     bottom: 50px;
     left: calc(50% - 30px); /* Сдвиг на 30px правее */
     transform: translateX(-50%);
@@ -645,8 +645,8 @@ picture {
     font-size: 35px;
     color: rgba(255, 255, 255, 0.7);
     text-align: center;
-    z-index: 1000;
-    pointer-events: none;
+    z-index: 10;
+    width: auto;
 }
 
 /* Для мобильных устройств */
@@ -677,19 +677,6 @@ picture {
   
 }
 
-@media screen and (max-width: 1250px) {
-  .pavel_photo {scale: 0.4;bottom: -200px;right: 0px;}
-  .blob {scale: 0.7; bottom: -1px;right: 0px;}
-  .g1 {scale: 0.3; bottom: -30px;right: 250px;}
-  .g2 {scale: 0.3; bottom: -50px;right: 10px;}
-  .age {scale: 0.5; bottom: 150px;right: 215px;}
-  .name {scale: 0.5; bottom: 170px;right: 200px;}
-  .blobs  {
-    font-size: clamp(1rem, 2.5vw, 2rem);
-    padding: clamp(0.5rem, 2vw, 2rem);
-    transform: scale(clamp(0.8, 2vw, 1.2));
-  }
-}
 
 
 @media screen and (max-width: 868px) {
@@ -740,10 +727,10 @@ picture {
     scale: 1;
   }
   .blob {
-    scale: 1.5;
+    scale: 1.35;
     position: absolute;
-    right: -10vw;
-    bottom: -2vw;
+    right: 38px;
+    bottom: -3vw;
     width: 70vw;
     height: auto;
   }
@@ -779,15 +766,15 @@ picture {
   }
   .name {
     position: absolute;
-    right: 12vw;
+    right: 20vw;
     bottom: 20vw;
-    font-size: 65px;
+    font-size: 25px;
   }
   .age {
     position: absolute;
-    right: 15vw;
+    right: 20vw;
     bottom: 15vw;
-    font-size: 30px;
+    font-size: 15px;
   }
 
   /* Block 2 */
@@ -873,18 +860,6 @@ picture {
 }
 
 
-
-@media screen and (max-width: 650px) {
-    .name{
-      font-size: 55px;
-    }
-}
-
-@media screen and (max-width: 550px) {
-    .name{
-      font-size: 35px;
-    }
-}
 
 
 
