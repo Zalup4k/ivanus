@@ -39,6 +39,7 @@
 body,
 :where(blockquote, figure, fieldset):where([class]) {
   margin: 0;
+  overflow-x: hidden;
 }
 
 /**
@@ -322,6 +323,7 @@ body {
 }
 
 .blob {
+  overflow: hidden;
   scale: 1.75;
   right: 100px;
   bottom: 0px;
@@ -608,20 +610,54 @@ picture {
   transform: translateX(-50%);
 }
 
+
 .footertext {
-  scale: 1,75;
   font-family: 'FindSansPro', sans-serif;
   font-weight: 400;
   font-size: 40px;
   color: white;
-  right: 27%;
-  transform: translateX(-50%);
   position: absolute;
   z-index: 2;
-  margin-top: 20px;
   line-height: 100%;
+  
+  /* Flexbox центрирование */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  
+  width: 100%;
+  height: 100%;
   bottom: 50px;
+  left: 0;
+  text-align: center;
+  padding-bottom: 50px;
 }
+
+
+/* Партнерская надпись внутри блока */
+.partner-label {
+    position: fixed;
+    bottom: 50px;
+    left: calc(50% - 30px); /* Сдвиг на 30px правее */
+    transform: translateX(-50%);
+    font-family: 'FindSansPro', sans-serif;
+    font-weight: 400;
+    font-size: 35px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+/* Для мобильных устройств */
+@media screen and (max-width: 868px) {
+    .partner-label {
+        font-size: 12px;
+        bottom: 30px;
+    }
+}
+
+
 
 @media screen and (max-width: 1424px) {
   .block1, .block2, .block3, .block4 {
@@ -648,7 +684,13 @@ picture {
   .g2 {scale: 0.3; bottom: -50px;right: 10px;}
   .age {scale: 0.5; bottom: 150px;right: 215px;}
   .name {scale: 0.5; bottom: 170px;right: 200px;}
+  .blobs  {
+    font-size: clamp(1rem, 2.5vw, 2rem);
+    padding: clamp(0.5rem, 2vw, 2rem);
+    transform: scale(clamp(0.8, 2vw, 1.2));
+  }
 }
+
 
 @media screen and (max-width: 868px) {
   body { line-height: 1.4; }
@@ -663,7 +705,11 @@ picture {
   @media screen and (min-width: 851px) {
     .cardh2, .cardh22 { top: 24px; bottom: auto !important; }
   }
-
+  .blobs {
+    font-size: clamp(1rem, 2.5vw, 2rem);
+    padding: clamp(0.5rem, 2vw, 2rem);
+    transform: scale(clamp(0.8, 2vw, 1.2));
+  }
   .b1h1 {
     position: static;
     font-size: 28px;
@@ -732,11 +778,10 @@ picture {
     height: auto;
   }
   .name {
-
     position: absolute;
     right: 12vw;
     bottom: 20vw;
-    font-size: 35px;
+    font-size: 65px;
   }
   .age {
     position: absolute;
@@ -785,7 +830,7 @@ picture {
     background-position: center top; 
     background-size: cover;
   }
-  .b4h1, .b4h2, .footertext { position: static; text-align: center; }
+  .b4h1, .b4h2 { position: static; text-align: center; }
   .b4h1 { 
     font-size: 24px; 
     margin: 0 0 12px 0; 
@@ -824,17 +869,22 @@ picture {
     scale: 1;
     margin-bottom: 60px;
   }
-  .footertext { 
-    margin: 20px auto 0; 
-    right: auto; 
-    transform: none; 
-    font-size: 16px; 
-    scale: 1;
-  }
+
 }
 
 
 
+@media screen and (max-width: 650px) {
+    .name{
+      font-size: 55px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .name{
+      font-size: 35px;
+    }
+}
 
 
 
